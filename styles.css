@@ -1,0 +1,893 @@
+:root {
+  --bg: #f7faf5;
+  --paper: #fffdf5;
+  --ink: #1f2a24;
+  --muted: #65736b;
+  --green: #0f5d3b;
+  --green-2: #ddefe5;
+  --green-3: #eaf6ee;
+  --gold: #c9a227;
+  --teal: #0c8a84;
+  --red: #c75c5c;
+  --line: rgba(15, 93, 59, 0.12);
+  --shadow: 0 18px 45px rgba(30, 74, 50, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 16% 0%, rgba(201, 162, 39, 0.16), transparent 26rem),
+    linear-gradient(135deg, #f8fbf3 0%, #eef7f1 48%, #f7faf5 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 28px 18px 32px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 6px 2px 22px;
+}
+
+.eyebrow,
+.future-section span {
+  margin: 0;
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  margin-top: 4px;
+  color: var(--green);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.date-time {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-weight: 700;
+}
+
+.icon-button,
+.location-button,
+.toggle-times {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--green);
+  background: rgba(255, 253, 245, 0.78);
+  box-shadow: 0 10px 30px rgba(22, 74, 50, 0.08);
+  cursor: pointer;
+}
+
+.icon-button {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  font-weight: 800;
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 245, 0.66);
+}
+
+.region-control {
+  display: grid;
+  grid-template-columns: auto minmax(180px, 280px);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.region-control span {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.region-control select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+  color: var(--green);
+  font: inherit;
+  font-weight: 800;
+  background: rgba(255, 253, 245, 0.86);
+}
+
+.location-button {
+  min-height: 48px;
+  padding: 0 18px;
+  white-space: nowrap;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.feature-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(92px, 15vw, 142px);
+  align-items: center;
+  min-height: 178px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  text-align: left;
+  background: rgba(255, 253, 245, 0.88);
+  box-shadow: 0 12px 28px rgba(30, 74, 50, 0.09);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(15, 93, 59, 0.28);
+  box-shadow: 0 18px 38px rgba(30, 74, 50, 0.13);
+}
+
+.feature-text {
+  display: grid;
+  gap: 9px;
+}
+
+.feature-text strong {
+  font-size: clamp(1.08rem, 2.4vw, 1.55rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.feature-text small {
+  max-width: 16rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.feature-card > img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(19, 58, 39, 0.12));
+}
+
+.prayer-widget {
+  display: grid;
+  gap: 10px;
+}
+
+.next-prayer {
+  display: grid;
+  gap: 3px;
+  width: fit-content;
+  min-width: 126px;
+  padding: 10px 12px;
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  border-radius: 8px;
+  background: rgba(255, 247, 220, 0.82);
+}
+
+.next-prayer span,
+.next-prayer small,
+.mini-times span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.next-prayer strong {
+  color: var(--green);
+  font-size: 1.42rem;
+  line-height: 1;
+}
+
+.mini-times {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.mini-times[hidden] {
+  display: none;
+}
+
+.mini-times span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  min-height: 30px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(15, 93, 59, 0.08);
+  overflow-wrap: anywhere;
+}
+
+.mini-times strong {
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.prayer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toggle-times,
+.source-link {
+  width: fit-content;
+  min-height: 34px;
+  padding: 0 12px;
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(15, 38, 27, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-panel {
+  width: min(100%, 680px);
+  max-height: min(90vh, 720px);
+  overflow: auto;
+  padding: 22px;
+  border: 1px solid rgba(15, 93, 59, 0.18);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: 0 26px 70px rgba(18, 54, 36, 0.22);
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.modal-header h2 {
+  margin-top: 5px;
+  color: var(--green);
+  font-size: clamp(1.35rem, 4vw, 2.15rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.disclaimer {
+  margin-top: 18px;
+  color: var(--muted);
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions .location-button {
+  color: #fffdf5;
+  border-color: rgba(15, 93, 59, 0.18);
+  background: var(--green);
+}
+
+.modal-prayer-widget {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.modal-prayer-widget .next-prayer {
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  background:
+    linear-gradient(135deg, rgba(15, 93, 59, 0.95), rgba(12, 138, 132, 0.88)),
+    var(--green);
+}
+
+.modal-prayer-widget .next-prayer span,
+.modal-prayer-widget .next-prayer small {
+  color: #fff7d8;
+}
+
+.modal-prayer-widget .next-prayer strong {
+  color: #fffdf5;
+  font-size: clamp(2rem, 8vw, 3.8rem);
+}
+
+.expanded-times {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.expanded-times span {
+  min-height: 64px;
+  padding: 12px;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: rgba(15, 93, 59, 0.06);
+}
+
+.expanded-times strong {
+  color: var(--green);
+  font-size: 1.18rem;
+}
+
+.qibla-backdrop {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(201, 162, 39, 0.22), transparent 22rem),
+    rgba(6, 19, 13, 0.64);
+}
+
+.qibla-panel {
+  color: #f8fbf3;
+  border-color: rgba(255, 253, 245, 0.1);
+  background: #101814;
+}
+
+.qibla-panel .modal-header h2,
+.qibla-panel .eyebrow {
+  color: #f8fbf3;
+}
+
+.qibla-panel .icon-button {
+  color: #f8fbf3;
+  border-color: rgba(255, 253, 245, 0.14);
+  background: rgba(255, 253, 245, 0.08);
+}
+
+.compass-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.compass-status {
+  min-height: 38px;
+  padding: 9px 13px;
+  border: 1px solid rgba(255, 253, 245, 0.1);
+  border-radius: 8px;
+  color: #d9e6dc;
+  background: rgba(255, 253, 245, 0.07);
+  font-weight: 800;
+  text-align: center;
+}
+
+.compass-wrap.aligned .compass-status {
+  color: #eaffef;
+  border-color: rgba(48, 209, 88, 0.55);
+  background: rgba(48, 209, 88, 0.18);
+}
+
+.compass {
+  position: relative;
+  width: min(78vw, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #1b2520 0 18%, transparent 19%),
+    radial-gradient(circle at 50% 50%, transparent 0 64%, rgba(255, 253, 245, 0.08) 65% 67%, transparent 68%),
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255, 253, 245, 0.95) 0deg 1deg,
+      transparent 1deg 10deg
+    ),
+    #0b0f0d;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 253, 245, 0.1),
+    inset 0 0 34px rgba(255, 253, 245, 0.06),
+    0 28px 60px rgba(0, 0, 0, 0.35);
+}
+
+.compass-dial {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transition: transform 160ms ease-out;
+}
+
+.cardinal {
+  position: absolute;
+  color: #f8fbf3;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.north {
+  top: 20px;
+  left: 50%;
+  color: #ff645f;
+  transform: translateX(-50%);
+}
+
+.east {
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+}
+
+.south {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.west {
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+}
+
+.heading-line {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 4px;
+  height: 48px;
+  border-radius: 999px;
+  background: #f8fbf3;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20px rgba(255, 253, 245, 0.32);
+}
+
+.qibla-needle {
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  transition: transform 160ms ease-out;
+}
+
+.qibla-needle span {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 30px;
+  height: 88px;
+  border-radius: 999px 999px 10px 10px;
+  background: linear-gradient(180deg, var(--gold), #fff2b7);
+  transform: translateX(-50%);
+  box-shadow: 0 0 26px rgba(201, 162, 39, 0.42);
+}
+
+.compass-wrap.aligned .qibla-needle span,
+.compass-wrap.aligned .heading-line {
+  background: #30d158;
+  box-shadow: 0 0 34px rgba(48, 209, 88, 0.7);
+}
+
+.compass-wrap.aligned .compass {
+  box-shadow:
+    inset 0 0 0 1px rgba(48, 209, 88, 0.3),
+    inset 0 0 34px rgba(48, 209, 88, 0.16),
+    0 0 42px rgba(48, 209, 88, 0.2),
+    0 28px 60px rgba(0, 0, 0, 0.35);
+}
+
+.compass-center {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(255, 253, 245, 0.1);
+  border-radius: 50%;
+  color: #f8fbf3;
+  background: rgba(16, 24, 20, 0.86);
+  transform: translate(-50%, -50%);
+}
+
+.compass-center strong {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.compass-center small {
+  color: #b9c8bf;
+  font-weight: 800;
+}
+
+.qibla-actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.qibla-actions .location-button {
+  color: #101814;
+  background: #f8fbf3;
+}
+
+.qibla-actions p {
+  color: #b9c8bf;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.calendar-panel {
+  width: min(100%, 760px);
+}
+
+.calendar-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.calendar-event-card {
+  min-height: 96px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(15, 93, 59, 0.06);
+}
+
+.calendar-event-card strong,
+.calendar-event-card span {
+  display: block;
+}
+
+.calendar-event-card strong {
+  color: var(--green);
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.calendar-event-card span {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.calendar-event-card.eid {
+  border-color: rgba(201, 162, 39, 0.34);
+  background: #fff7dc;
+}
+
+.calendar-event-card.ramadan {
+  border-color: rgba(15, 93, 59, 0.22);
+  background: #e9f6ef;
+}
+
+.calendar-event-card.arafah {
+  border-color: rgba(199, 92, 92, 0.24);
+  background: #faeceb;
+}
+
+.calendar-toolbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 245, 0.72);
+}
+
+.calendar-toolbar strong {
+  color: var(--green);
+  font-size: clamp(1.1rem, 3vw, 1.45rem);
+  text-align: center;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.calendar-weekdays {
+  margin-top: 14px;
+}
+
+.calendar-weekdays span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.calendar-grid {
+  margin-top: 8px;
+}
+
+.calendar-day {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-height: 96px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 245, 0.8);
+}
+
+.calendar-day.blank {
+  border-color: transparent;
+  background: transparent;
+}
+
+.calendar-day.today {
+  border-color: rgba(15, 93, 59, 0.4);
+  box-shadow: inset 0 0 0 2px rgba(15, 93, 59, 0.12);
+}
+
+.gregorian-day {
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.hijri-day {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.calendar-badge {
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 6px;
+  border-radius: 8px;
+  color: var(--green);
+  background: rgba(15, 93, 59, 0.1);
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.calendar-day.ramadan {
+  background: #e9f6ef;
+}
+
+.calendar-day.eid {
+  border-color: rgba(201, 162, 39, 0.5);
+  background: #fff7dc;
+}
+
+.calendar-day.eid .calendar-badge {
+  color: #6a4c00;
+  background: rgba(201, 162, 39, 0.22);
+}
+
+.calendar-day.arafah {
+  border-color: rgba(199, 92, 92, 0.34);
+  background: #faeceb;
+}
+
+.calendar-day.arafah .calendar-badge {
+  color: #8b3434;
+  background: rgba(199, 92, 92, 0.14);
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(15, 93, 59, 0.12);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255, 253, 245, 0.62);
+  text-decoration: none;
+}
+
+.qibla {
+  background: linear-gradient(135deg, #fffdf5, #edf7f1);
+}
+
+.prayer {
+  background: linear-gradient(135deg, #fffdf5, #f2f8ee);
+}
+
+.masjid {
+  background: linear-gradient(135deg, #fffdf5, #eef8f7);
+}
+
+.calendar {
+  background: linear-gradient(135deg, #fffdf5, #fff5da);
+}
+
+.future-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px dashed rgba(15, 93, 59, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 253, 245, 0.58);
+}
+
+.future-section p {
+  color: var(--muted);
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding-top: 22px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card {
+    grid-template-columns: 1fr;
+    align-content: space-between;
+    min-height: 246px;
+    padding: 16px;
+  }
+
+  .feature-card > img {
+    width: min(34vw, 138px);
+    justify-self: end;
+  }
+
+  .next-prayer {
+    min-width: 0;
+  }
+
+  .mini-times {
+    grid-template-columns: 1fr;
+  }
+
+  .expanded-times {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .future-section {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .future-section p {
+    text-align: left;
+  }
+
+  .calendar-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-day {
+    min-height: 86px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 430px) {
+  .location-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .region-control {
+    grid-template-columns: 1fr;
+  }
+
+  .location-button {
+    width: 100%;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    gap: 8px;
+    min-height: 162px;
+    grid-template-columns: minmax(0, 1fr) 118px;
+  }
+
+  .feature-card > img {
+    width: 100%;
+    justify-self: end;
+  }
+
+  .modal-panel {
+    padding: 18px;
+  }
+
+  .expanded-times {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-weekdays,
+  .calendar-grid {
+    gap: 5px;
+  }
+
+  .calendar-day {
+    min-height: 76px;
+    padding: 6px;
+  }
+
+  .gregorian-day {
+    font-size: 0.94rem;
+  }
+
+  .hijri-day,
+  .calendar-badge {
+    font-size: 0.64rem;
+  }
+}

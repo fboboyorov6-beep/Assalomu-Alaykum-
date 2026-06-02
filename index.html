@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Uzbek-first Muslim daily companion for Qibla direction, prayer times, nearby masjids, and Hijri calendar."
+    />
+    <meta name="theme-color" content="#0f5d3b" />
+    <meta property="og:title" content="Assalomu alaykum" />
+    <meta
+      property="og:description"
+      content="Qibla, namoz vaqtlari, yaqin masjidlar va hijriy taqvim uchun sokin musulmon hamroh."
+    />
+    <meta property="og:type" content="website" />
+    <title>Assalomu alaykum | Muslim Daily Companion</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar" aria-label="App header">
+        <div>
+          <p class="eyebrow">Bugungi hamroh</p>
+          <h1>Assalomu alaykum</h1>
+          <p class="date-time" id="dateTime">Bugungi sana va vaqt</p>
+        </div>
+        <button class="icon-button" type="button" aria-label="Tilni almashtirish">
+          UZ
+        </button>
+      </header>
+
+      <section class="location-row" aria-label="Location controls">
+        <label class="region-control" for="regionSelect">
+          <span>Hudud</span>
+          <select id="regionSelect" name="region">
+            <optgroup label="Asosiy hududlar">
+              <option value="toshkent-shahri">Toshkent shahri</option>
+              <option value="andijon-shahri">Andijon shahri</option>
+              <option value="namangan-shahri">Namangan shahri</option>
+              <option value="fargona-shahri" selected>Farg'ona shahri</option>
+              <option value="samarqand-shahri">Samarqand shahri</option>
+              <option value="buxoro-shahri">Buxoro shahri</option>
+              <option value="navoiy-shahri">Navoiy shahri</option>
+              <option value="qarshi-shahri">Qarshi shahri</option>
+              <option value="termiz-shahri">Termiz shahri</option>
+              <option value="jizzax-shahri">Jizzax shahri</option>
+              <option value="guliston-shahri">Guliston shahri</option>
+              <option value="urganch-shahri">Urganch shahri</option>
+              <option value="xiva-shahri">Xiva shahri</option>
+              <option value="nukus-shahri">Nukus shahri</option>
+            </optgroup>
+            <optgroup label="Farg'ona viloyati">
+              <option value="qoqon-shahri">Qo'qon shahri</option>
+              <option value="margilon-shahri">Marg'ilon shahri</option>
+              <option value="quvasoy-shahri">Quvasoy shahri</option>
+              <option value="beshariq-tumani">Beshariq tumani</option>
+              <option value="bogdod-tumani">Bog'dod tumani</option>
+              <option value="buvayda-tumani">Buvayda tumani</option>
+              <option value="dangara-tumani">Dang'ara tumani</option>
+              <option value="fargona-tumani">Farg'ona tumani</option>
+              <option value="furqat-tumani">Furqat tumani</option>
+              <option value="ozbekiston-tumani">O'zbekiston tumani</option>
+              <option value="oltiariq-tumani">Oltiariq tumani</option>
+              <option value="qoshtepa-tumani">Qo'shtepa tumani</option>
+              <option value="quva-tumani">Quva tumani</option>
+              <option value="rishton-tumani">Rishton tumani</option>
+              <option value="sox-tumani">So'x tumani</option>
+              <option value="toshloq-tumani">Toshloq tumani</option>
+              <option value="uchkoprik-tumani">Uchko'prik tumani</option>
+              <option value="yozyovon-tumani">Yozyovon tumani</option>
+            </optgroup>
+          </select>
+        </label>
+        <button class="location-button" type="button" id="locationButton">
+          Joylashuvni aniqlash
+        </button>
+      </section>
+
+      <section class="feature-grid" aria-label="Main features">
+        <button class="feature-card qibla" type="button" id="qiblaOpenButton">
+          <span class="feature-text">
+            <strong>Qibla yo'nalishi</strong>
+            <small>Ka'ba tomonini topish</small>
+          </span>
+          <img src="assets/qibla-kaaba.png" alt="" />
+        </button>
+
+        <button class="feature-card prayer" type="button" id="prayerOpenButton">
+          <span class="feature-text">
+            <strong>Namoz vaqtlari</strong>
+            <small>Tanlangan hudud bo'yicha</small>
+          </span>
+          <img src="assets/prayer-man.png" alt="" />
+        </button>
+
+        <button class="feature-card masjid" type="button" id="masjidOpenButton">
+          <span class="feature-text">
+            <strong>Yaqin masjidlar</strong>
+            <small id="masjidHint">Google Maps orqali ko'rish</small>
+          </span>
+          <img src="assets/masjid.png" alt="" />
+        </button>
+
+        <button class="feature-card calendar" type="button" id="calendarOpenButton">
+          <span class="feature-text">
+            <strong>Hijriy taqvim</strong>
+            <small>Ramazon va hayit kunlari</small>
+          </span>
+          <img src="assets/hijri-calendar.png" alt="" />
+        </button>
+      </section>
+
+      <section class="future-section" aria-label="Future features">
+        <span>Keyinroq</span>
+        <p>Arab tilidan tarjima va sahobalar haqida ma'lumotlar</p>
+      </section>
+
+      <div class="modal-backdrop" id="prayerModal" hidden>
+        <section
+          class="modal-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="prayerModalTitle"
+        >
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">Namoz vaqtlari</p>
+              <h2 id="prayerModalTitle">Bugungi namoz vaqtlari</h2>
+            </div>
+            <button class="icon-button" type="button" id="closePrayerModal" aria-label="Yopish">
+              X
+            </button>
+          </div>
+
+          <p class="disclaimer">
+            Vaqtlar yuqorida tanlangan hudud bo'yicha ko'rsatiladi. Hududni o'zgartirish uchun
+            asosiy sahifadagi tanlovdan foydalaning.
+          </p>
+
+          <div class="modal-actions">
+            <a
+              class="source-link"
+              id="sourceLink"
+              href="https://namoz-vaqti.uz/?region=fargona-shahri&lang=lotin&period=today"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Manbani ochish
+            </a>
+          </div>
+
+          <div class="prayer-widget modal-prayer-widget" id="prayerResults" aria-live="polite">
+            <div class="next-prayer">
+              <span id="nextPrayerName">Yuklanmoqda</span>
+              <strong id="nextPrayerTime">--:--</strong>
+              <small id="currentPrayer">namoz-vaqti.uz</small>
+            </div>
+
+            <div class="mini-times expanded-times" id="miniTimes">
+              <span>Bomdod <strong id="timeBomdod">--:--</strong></span>
+              <span>Quyosh <strong id="timeQuyosh">--:--</strong></span>
+              <span>Peshin <strong id="timePeshin">--:--</strong></span>
+              <span>Asr <strong id="timeAsr">--:--</strong></span>
+              <span>Shom <strong id="timeShom">--:--</strong></span>
+              <span>Xufton <strong id="timeXufton">--:--</strong></span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="modal-backdrop qibla-backdrop" id="qiblaModal" hidden>
+        <section
+          class="modal-panel qibla-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="qiblaModalTitle"
+        >
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">Qibla yo'nalishi</p>
+              <h2 id="qiblaModalTitle">Ka'ba tomonga yuzlaning</h2>
+            </div>
+            <button class="icon-button" type="button" id="closeQiblaModal" aria-label="Yopish">
+              X
+            </button>
+          </div>
+
+          <div class="compass-wrap" id="compassWrap">
+            <div class="compass-status" id="qiblaStatus">Joylashuv va kompasga ruxsat kerak</div>
+            <div class="compass" aria-label="Qibla compass">
+              <div class="compass-dial" id="compassDial">
+                <span class="cardinal north">N</span>
+                <span class="cardinal east">E</span>
+                <span class="cardinal south">S</span>
+                <span class="cardinal west">W</span>
+              </div>
+              <div class="qibla-needle" id="qiblaNeedle">
+                <span></span>
+              </div>
+              <div class="heading-line"></div>
+              <div class="compass-center">
+                <strong id="qiblaDegrees">--°</strong>
+                <small>Qibla</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="qibla-actions">
+            <button class="location-button" type="button" id="startQiblaButton">
+              Kompasni boshlash
+            </button>
+            <p id="qiblaHelp">
+              Telefonni tekis ushlang. Yashil belgi chiqqanda yo'nalish to'g'ri.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <div class="modal-backdrop" id="calendarModal" hidden>
+        <section
+          class="modal-panel calendar-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="calendarModalTitle"
+        >
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">Hijriy taqvim</p>
+              <h2 id="calendarModalTitle">Islomiy muhim kunlar</h2>
+            </div>
+            <button class="icon-button" type="button" id="closeCalendarModal" aria-label="Yopish">
+              X
+            </button>
+          </div>
+
+          <p class="disclaimer">
+            Taqvim taxminiy Hijriy sanalar asosida ko'rsatiladi. Mahalliy diniy idora e'lonlari
+            rasmiy bayram sanalarini tasdiqlashi mumkin.
+          </p>
+
+          <section class="calendar-summary" id="calendarSummary" aria-label="Upcoming Islamic days"></section>
+
+          <div class="calendar-toolbar">
+            <button class="toggle-times" type="button" id="prevCalendarMonth">Oldingi</button>
+            <strong id="calendarMonthLabel">Oy</strong>
+            <button class="toggle-times" type="button" id="nextCalendarMonth">Keyingi</button>
+          </div>
+
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>Du</span>
+            <span>Se</span>
+            <span>Ch</span>
+            <span>Pa</span>
+            <span>Ju</span>
+            <span>Sh</span>
+            <span>Ya</span>
+          </div>
+
+          <div class="calendar-grid" id="calendarGrid" aria-label="Hijri calendar grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js?v=20260602-1"></script>
+  </body>
+</html>

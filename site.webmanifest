@@ -1,0 +1,16 @@
+{
+  "name": "Assalomu alaykum",
+  "short_name": "Assalomu",
+  "description": "Uzbek-first Muslim daily companion for Qibla, prayer times, nearby masjids, and Hijri calendar.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f7faf5",
+  "theme_color": "#0f5d3b",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}
