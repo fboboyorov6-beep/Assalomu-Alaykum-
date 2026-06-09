@@ -936,6 +936,12 @@ prayerOpenButton?.addEventListener("click", () => {
 
 qiblaOpenButton?.addEventListener("click", () => {
   qiblaModal.hidden = false;
+  qiblaStatus.textContent = "Bu funksiya ishlab chiqilmoqda";
+  qiblaDegrees.textContent = "--°";
+  qiblaBearingValue.textContent = "--°";
+  deviceHeadingValue.textContent = "--°";
+  qiblaTurnValue.textContent = "--°";
+  startQiblaButton.textContent = "Tez orada";
 });
 
 closeQiblaModal?.addEventListener("click", () => {
@@ -954,7 +960,9 @@ qiblaModal?.addEventListener("click", (event) => {
   }
 });
 
-startQiblaButton?.addEventListener("click", startQiblaCompass);
+startQiblaButton?.addEventListener("click", () => {
+  qiblaStatus.textContent = "Qibla kompas funksiyasi hozir ishlab chiqilmoqda";
+});
 
 manualHeadingSlider?.addEventListener("input", () => {
   updateCompass(Number(manualHeadingSlider.value));
