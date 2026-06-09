@@ -556,6 +556,32 @@ h1 {
   font-weight: 800;
 }
 
+.qibla-readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: min(100%, 420px);
+}
+
+.qibla-readout span {
+  min-height: 54px;
+  padding: 10px;
+  border: 1px solid rgba(255, 253, 245, 0.1);
+  border-radius: 8px;
+  color: #b9c8bf;
+  background: rgba(255, 253, 245, 0.06);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.qibla-readout strong {
+  display: block;
+  margin-top: 4px;
+  color: #f8fbf3;
+  font-size: 1rem;
+}
+
 .qibla-actions {
   display: grid;
   gap: 12px;
@@ -571,6 +597,26 @@ h1 {
   color: #b9c8bf;
   font-weight: 700;
   line-height: 1.45;
+}
+
+.manual-heading {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 253, 245, 0.1);
+  border-radius: 8px;
+  color: #d9e6dc;
+  background: rgba(255, 253, 245, 0.06);
+  font-weight: 800;
+}
+
+.manual-heading[hidden] {
+  display: none;
+}
+
+.manual-heading input {
+  width: 100%;
+  accent-color: #30d158;
 }
 
 .calendar-panel {
@@ -822,6 +868,10 @@ h1 {
   }
 
   .calendar-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .qibla-readout {
     grid-template-columns: 1fr;
   }
 

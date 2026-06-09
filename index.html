@@ -23,7 +23,7 @@
     <main class="app-shell">
       <header class="topbar" aria-label="App header">
         <div>
-          <p class="eyebrow">Assalomu aleykum</p>
+          <p class="eyebrow">Assalomu alaykum</p>
           <h1>Niyat</h1>
           <p class="date-time" id="dateTime">Bugungi sana va vaqt</p>
         </div>
@@ -85,7 +85,7 @@
             <strong>Qibla yo'nalishi</strong>
             <small>Ka'ba tomonini topish</small>
           </span>
-          <img src="qibla-kaaba.png" alt="" />
+          <img src="assets/qibla-kaaba.png" alt="" />
         </button>
 
         <button class="feature-card prayer" type="button" id="prayerOpenButton">
@@ -93,7 +93,7 @@
             <strong>Namoz vaqtlari</strong>
             <small>Tanlangan hudud bo'yicha</small>
           </span>
-          <img src="prayer-man.png" alt="" />
+          <img src="assets/prayer-man.png" alt="" />
         </button>
 
         <button class="feature-card masjid" type="button" id="masjidOpenButton">
@@ -101,7 +101,7 @@
             <strong>Yaqin masjidlar</strong>
             <small id="masjidHint">Google Maps orqali ko'rish</small>
           </span>
-          <img src="masjid.png" alt="" />
+          <img src="assets/masjid.png" alt="" />
         </button>
 
         <button class="feature-card calendar" type="button" id="calendarOpenButton">
@@ -109,7 +109,7 @@
             <strong>Hijriy taqvim</strong>
             <small>Ramazon va hayit kunlari</small>
           </span>
-          <img src="hijri-calendar.png" alt="" />
+          <img src="assets/hijri-calendar.png" alt="" />
         </button>
       </section>
 
@@ -206,14 +206,24 @@
                 <small>Qibla</small>
               </div>
             </div>
+            <div class="qibla-readout" aria-label="Compass details">
+              <span>Qibla: <strong id="qiblaBearingValue">--°</strong></span>
+              <span>Telefon: <strong id="deviceHeadingValue">--°</strong></span>
+              <span>Burilish: <strong id="qiblaTurnValue">--°</strong></span>
+            </div>
           </div>
 
           <div class="qibla-actions">
             <button class="location-button" type="button" id="startQiblaButton">
               Kompasni boshlash
             </button>
+            <label class="manual-heading" id="manualHeadingControl" hidden>
+              <span>Sinov uchun telefon yo'nalishi</span>
+              <input id="manualHeadingSlider" type="range" min="0" max="359" value="0" />
+            </label>
             <p id="qiblaHelp">
-              Telefonni tekis ushlang. Yashil belgi chiqqanda yo'nalish to'g'ri.
+              Telefonning yuqori qismini Ka'ba tomonga qarating. Oltin ko'rsatkich tepaga kelganda
+              yo'nalish to'g'ri.
             </p>
           </div>
         </section>
@@ -264,6 +274,6 @@
       </div>
     </main>
 
-    <script src="script.js?v=20260602-1"></script>
+    <script src="script.js?v=20260609-1"></script>
   </body>
 </html>

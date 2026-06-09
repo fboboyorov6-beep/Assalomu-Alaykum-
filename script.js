@@ -10,6 +10,11 @@ const compassDial = document.querySelector("#compassDial");
 const qiblaNeedle = document.querySelector("#qiblaNeedle");
 const qiblaStatus = document.querySelector("#qiblaStatus");
 const qiblaDegrees = document.querySelector("#qiblaDegrees");
+const qiblaBearingValue = document.querySelector("#qiblaBearingValue");
+const deviceHeadingValue = document.querySelector("#deviceHeadingValue");
+const qiblaTurnValue = document.querySelector("#qiblaTurnValue");
+const manualHeadingControl = document.querySelector("#manualHeadingControl");
+const manualHeadingSlider = document.querySelector("#manualHeadingSlider");
 const prayerOpenButton = document.querySelector("#prayerOpenButton");
 const masjidOpenButton = document.querySelector("#masjidOpenButton");
 const masjidHint = document.querySelector("#masjidHint");
@@ -333,6 +338,8 @@ let qiblaWasAligned = false;
 let qiblaAudioContext = null;
 let prayerRequestId = 0;
 let visibleCalendarDate = new Date();
+let qiblaOrientationTimer = null;
+let qiblaLastHeading = null;
 
 const kaaba = {
   latitude: 21.4224779,
@@ -546,8 +553,10 @@ function getQiblaBearing(latitude, longitude) {
   const lat1 = toRadians(latitude);
   const lat2 = toRadians(kaaba.latitude);
   const deltaLongitude = toRadians(kaaba.longitude - longitude);
-  const y = Math.sin(deltaLongitude);
-  const x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(deltaLongitude);
+  const y = Math.sin(deltaLongitude) * Math.cos(lat2);
+  const x =
+    Math.cos(lat1) * Math.sin(lat2) -
+    Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLongitude);
 
   return normalizeDegrees(toDegrees(Math.atan2(y, x)));
 }
@@ -616,12 +625,16 @@ function updateCompass(heading) {
     return;
   }
 
+  qiblaLastHeading = normalizeDegrees(heading);
   const qiblaRelativeToDevice = normalizeDegrees(qiblaBearing - heading);
-  const difference = angleDifference(qiblaRelativeToDevice, 0);
+  const difference = angleDifference(qiblaBearing, heading);
 
-  compassDial.style.transform = `rotate(${-heading}deg)`;
+  compassDial.style.transform = `rotate(${-qiblaLastHeading}deg)`;
   qiblaNeedle.style.transform = `rotate(${qiblaRelativeToDevice}deg)`;
   qiblaDegrees.textContent = `${Math.round(qiblaBearing)}°`;
+  qiblaBearingValue.textContent = `${Math.round(qiblaBearing)}°`;
+  deviceHeadingValue.textContent = `${Math.round(qiblaLastHeading)}°`;
+  qiblaTurnValue.textContent = `${Math.round(difference)}°`;
 
   if (difference <= 5) {
     markQiblaAligned(true);
@@ -636,7 +649,7 @@ function readDeviceHeading(event) {
     return event.webkitCompassHeading;
   }
 
-  if (typeof event.alpha === "number") {
+  if (event.absolute === true && typeof event.alpha === "number") {
     return normalizeDegrees(360 - event.alpha);
   }
 
@@ -663,10 +676,21 @@ async function requestCompassPermission() {
   return true;
 }
 
+function showManualHeadingFallback() {
+  manualHeadingControl.hidden = false;
+  qiblaStatus.textContent = "Kompas topilmadi. Sinov slayderidan foydalaning";
+
+  if (qiblaLastHeading === null) {
+    updateCompass(Number(manualHeadingSlider.value));
+  }
+}
+
 async function startQiblaCompass() {
   prepareQiblaFeedback();
   qiblaStatus.textContent = "Joylashuv aniqlanmoqda...";
   startQiblaButton.textContent = "Aniqlanmoqda...";
+  manualHeadingControl.hidden = true;
+  qiblaWasAligned = false;
 
   if (!navigator.geolocation) {
     qiblaStatus.textContent = "Bu brauzer joylashuvni qo'llamaydi";
@@ -678,7 +702,9 @@ async function startQiblaCompass() {
     async ({ coords }) => {
       qiblaBearing = getQiblaBearing(coords.latitude, coords.longitude);
       qiblaDegrees.textContent = `${Math.round(qiblaBearing)}°`;
+      qiblaBearingValue.textContent = `${Math.round(qiblaBearing)}°`;
       qiblaStatus.textContent = "Kompas ruxsati so'ralmoqda...";
+      updateCompass(qiblaLastHeading ?? Number(manualHeadingSlider.value));
 
       try {
         const compassAllowed = await requestCompassPermission();
@@ -690,12 +716,21 @@ async function startQiblaCompass() {
         }
 
         window.removeEventListener("deviceorientation", handleDeviceOrientation);
+        window.removeEventListener("deviceorientationabsolute", handleDeviceOrientation);
         window.addEventListener("deviceorientation", handleDeviceOrientation, true);
+        window.addEventListener("deviceorientationabsolute", handleDeviceOrientation, true);
         qiblaStatus.textContent = "Telefonni sekin aylantiring";
         startQiblaButton.textContent = "Kompas ishlayapti";
+        clearTimeout(qiblaOrientationTimer);
+        qiblaOrientationTimer = setTimeout(() => {
+          if (qiblaLastHeading === null) {
+            showManualHeadingFallback();
+          }
+        }, 2500);
       } catch {
         qiblaStatus.textContent = "Kompas ruxsati olinmadi";
         startQiblaButton.textContent = "Qayta urinish";
+        showManualHeadingFallback();
       }
     },
     () => {
@@ -906,16 +941,24 @@ qiblaOpenButton?.addEventListener("click", () => {
 closeQiblaModal?.addEventListener("click", () => {
   qiblaModal.hidden = true;
   window.removeEventListener("deviceorientation", handleDeviceOrientation);
+  window.removeEventListener("deviceorientationabsolute", handleDeviceOrientation);
+  clearTimeout(qiblaOrientationTimer);
 });
 
 qiblaModal?.addEventListener("click", (event) => {
   if (event.target === qiblaModal) {
     qiblaModal.hidden = true;
     window.removeEventListener("deviceorientation", handleDeviceOrientation);
+    window.removeEventListener("deviceorientationabsolute", handleDeviceOrientation);
+    clearTimeout(qiblaOrientationTimer);
   }
 });
 
 startQiblaButton?.addEventListener("click", startQiblaCompass);
+
+manualHeadingSlider?.addEventListener("input", () => {
+  updateCompass(Number(manualHeadingSlider.value));
+});
 
 masjidOpenButton?.addEventListener("click", () => {
   masjidHint.textContent = "Joylashuv aniqlanmoqda...";
