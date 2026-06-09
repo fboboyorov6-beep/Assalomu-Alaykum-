@@ -1,6 +1,6 @@
-# Assalomu alaykum
+# Niyat
 
-Uzbek-first Muslim daily companion website prototype.
+Uzbek-first Muslim daily companion website prototype for Qibla, prayer times, nearby masjids, and Hijri calendar.
 
 ## Features
 
